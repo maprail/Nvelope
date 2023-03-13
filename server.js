@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+module.exports = app;
 
 // Setup browser on localhost - browser should be in a folder named browser
 // if not replace 'browser' with the path to the index.html of your browser

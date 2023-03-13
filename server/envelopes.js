@@ -17,8 +17,9 @@ envelopesRouter.param('category', (req, res, next, category) => {
 
 envelopesRouter.post('/categories', (req, res, next) => {
     const categories = req.body.categories;
-    if(createEnvelopes(categories)){
-        res.status(201).json(req.body);
+    const envelopes = createEnvelopes(categories);
+    if(envelopes){
+        res.status(201).json(envelopes);
     } else {
         res.status(400).json('Total of all category percentages must add up to 100%');
     }
