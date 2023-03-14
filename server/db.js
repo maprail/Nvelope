@@ -28,7 +28,7 @@ let dbEnvelopes = [];
  *
  * @type {Number}
  */
-let periodTotalIncome = 0;
+let periodIncome = 0;
 
 // Initailize categories with test data
 /**
@@ -55,11 +55,23 @@ const createDefaultCategories = () => {
  * @returns {boolean}
  */
 const isValidCategories = (categories) => {
-    const totalSum = categories.reduce((sum, category) => sum + category.percentage * 100, 0)/100;
+    const totalSum = sumPercentages(categories);
     if(totalSum === 1)
         return true;
     else
         return false;
+}
+
+const isValidEnvelope = (category) => {
+    return dbEnvelopes.find(envelope => category.name === envelope.name);
+}
+
+const sumPercentages = (categories) => {
+    return categories.reduce((sum, category) => sum + category.percentage * 100, 0)/100;
+}
+
+const sumBugets = (categories) => {
+    return categories.reduce((sum, category) => sum + category.budget, 0);
 }
 
 /**
@@ -80,7 +92,7 @@ const createEnvelope = (category) => {
     return {
         name: category.name,
         percentage: category.percentage,
-        budget: periodTotalIncome * category.percentage,
+        budget: periodIncome * category.percentage,
     }
 }
 /** */
@@ -123,9 +135,69 @@ const createEnvelopes = (categories) => {
     }
 }
 
+const getAllEnvelopes = () => {
+    return dbEnvelopes;
+}
+
+const getEnvelope = (name) => {
+    const envelope = dbEnvelopes.find(envelope => envelope.name === name);
+    return envelope;
+}
+
+const addIncome = (amount) => {
+    if(dbEnvelopes){
+        dbEnvelopes.map(envelope => envelope.budget += envelope.percentage * amount);
+        return dbEnvelopes;
+    } else {
+        return null;
+    }
+}
+
+const spendIncome = (envelope, amount) => {
+    if(envelope.budget >= amount){
+        envelope.budget -= amount;
+        return envelope;
+    } else {
+        return null;
+    }
+}
+
+const transferBudgets = (categories) => {
+    const envelopes = [];
+    categories.forEach(category => {
+        const envelope = isValidEnvelope(category);
+        if(envelope){
+            envelopes.push(envelope);
+        } else {
+            return null;
+        }
+    });
+
+    if(sumPercentages(categories) != sumPercentages(envelopes)){
+        return null;
+    }
+
+    const totalBudget = sumBugets(envelopes);
+    const totalPercent = sumPercentages(categories);
+
+    categories.forEach(category => {
+
+        const envelope = getEnvelope(category.name);
+        envelope.budget = totalBudget * category.percentage/totalPercent;
+        envelope.percentage = category.percentage;
+    });
+
+    return envelopes;
+}
+
 module.exports = {
     createEnvelopes,
     getAllCategories,
     getCategory,
+    getAllEnvelopes,
+    getEnvelope,
+    addIncome,
+    spendIncome,
+    transferBudgets
 }
 
