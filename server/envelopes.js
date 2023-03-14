@@ -18,6 +18,7 @@ envelopesRouter.param('category', (req, res, next, category) => {
 envelopesRouter.post('/categories', (req, res, next) => {
     const categories = req.body.categories;
     const envelopes = createEnvelopes(categories);
+
     if(envelopes){
         res.status(201).json(envelopes);
     } else {
@@ -35,5 +36,6 @@ envelopesRouter.get('/categories', (req, res, next) => {
 });
 
 envelopesRouter.get('/categories/:category', (req, res, next) => {
-    res.send(req.category);
+    console.log('Requested category = ' + req.category);
+    res.status(200).send(req.category);
 });

@@ -1,9 +1,11 @@
 const expect = require('chai').expect;
+const { application } = require('express');
 const request = require('supertest');
+const { response } = require('../server');
 
 const app = require('../server');
 
-const categories = [
+const initCategories = {"categories": [
   {
       "name": "mortgage",
       "percentage": 0.3
@@ -28,56 +30,117 @@ const categories = [
       "name": "savings",
       "percentage": 0.1
   }
-]
-// Untested code
-describe('POST /api/envelopes/categories', function() {
+]}
 
-  it('should intialize envelopes based on the supplied category array', function() {
-    request.body = categories;
+const updateCategories = {"categories": [
+  {
+      "name": "mortgage",
+      "percentage": 0.3
+  },
+  {
+      "name": "utilities",
+      "percentage": 0.1
+  },
+  {
+      "name": "healthCare",
+      "percentage": 0.1
+  },
+  {
+      "name": "goceries",
+      "percentage": 0.2
+  },
+  {
+      "name": "entertainment",
+      "percentage": 0.1
+  },
+  {
+      "name": "auto",
+      "percentage": 0.1
+  },
+  {
+      "name": "savings",
+      "percentage": 0.1
+  }
+]}
+
+describe('POST /api/envelopes/categories', () => {
+
+  it('should create envelopes from provided category array', () => {
     return request(app)
-      .post('/api/envelopes/categories');
-      .send(response.body);
-      .expect(201);
-    })
-    .then((response) => response.body)
-    .then((envelopes) => {
-      deepCopy = envelopes.map(envelope => {name: envelope.name, percentage: envelope.percentage});
-      expect(deepCopy).to.be.deep.equal(categories);
+      .post('/api/envelopes/categories')
+      .send(initCategories)
+      .expect(201)
+      .then((response) => response.body)
+      .then((envelopes) => {
+        expect(envelopes.length === initCategories.length);
+        envCategories = envelopes.map(envelope => {
+          return {name: envelope.name, 
+                  percentage: envelope.percentage};
+        });
+        expect(envCategories).to.be.deep.equal(initCategories.categories);
+      })
+  });
+
+  it('should update envelopes using the updated category array', () => {
+    return request(app)
+      .post('/api/envelopes/categories')
+      .send(updateCategories)
+      .expect(201)
+      .then((response) => response.body)
+      .then((envelopes) => {
+        expect(envelopes.length === updateCategories.length);
+        envCategories = envelopes.map(envelope => {
+          return {name: envelope.name, 
+                  percentage: envelope.percentage};
+        });
+        expect(envCategories).to.be.deep.equal(updateCategories.categories);
+      })
+  });
+});
+
+describe('GET /api/envelopes/categories routes', () => {
+  it('should veriffy caregories are an array', () => {
+    return request(app)
+      .get('/api/envelopes/categories')
+      .expect(200)
+      .then((response) => {
+        expect(response.body).to.be.an.instanceOf(Array);
     });
   });
 
-/* describe('/api/minions routes', function() {
-  let fakeDb = require('../server/db.js');
-
-  describe('GET /api/minions', function() {
-
-    it('returns an array', function() {
-      return request(app)
-        .get('/api/minions')
-        .expect(200)
-        .then((response) => {
-          expect(response.body).to.be.an.instanceOf(Array);
-        });
+  it('should return an array of all categories', () => {
+    return request(app)
+      .get('/api/envelopes/categories')
+      .expect(200)
+      .then((response) => {
+        response.body.forEach((category) => {
+          expect(category).to.have.ownProperty('name');
+          expect(category).to.have.ownProperty('percentage');
+      });
     });
-
-    it('returns an array of all minions', function() {
-      return request(app)
-        .get('/api/minions')
-        .expect(200)
-        .then((response) => {
-          let length = fakeDb.getAllFromDatabase('minions').length;
-          expect(response.body.length).to.be.equal(length);
-          response.body.forEach((minion) => {
-            expect(minion).to.have.ownProperty('id');
-            expect(minion).to.have.ownProperty('name');
-            expect(minion).to.have.ownProperty('title');
-            expect(minion).to.have.ownProperty('weaknesses');
-            expect(minion).to.have.ownProperty('salary');
-          });
-        });
-    });
-
   });
+});
+
+describe('GET api/envelopes/categories/:category', () => {
+  it('should return the specified category', () => {
+    return request(app)
+    .get('/api/envelopes/categories/auto')
+    .expect(200)
+    .then(response => {
+      category = response.body;
+      expect(category.name === 'auto');
+      expect(category).to.have.ownProperty('name');
+      expect(category).to.have.ownProperty('percentage'); 
+    });
+  });
+
+  it('should return a not found status error', () => {
+    return request(app)
+    .get('/api/envelopes/categories/fun')
+    .expect(404);
+  });
+});
+/* 
 
   describe('GET /minions/:minionId', function() {
   

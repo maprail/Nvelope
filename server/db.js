@@ -55,7 +55,7 @@ const createDefaultCategories = () => {
  * @returns {boolean}
  */
 const isValidCategories = (categories) => {
-    const totalSum = categories.reduce((sum, category) => sum + category.percentage, 0);
+    const totalSum = categories.reduce((sum, category) => sum + category.percentage * 100, 0)/100;
     if(totalSum === 1)
         return true;
     else
