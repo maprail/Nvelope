@@ -1,6 +1,14 @@
+const { getEnvelopes, receiveIncome, spendBudget } = require('../controllers/envelopes');
+
 // routes/envelopes.js
 const router = require('express').Router();
 module.exports = router;
+
+{
+    getEnvelopes,
+    receiveIncome,
+    spendBudget
+} = require('../controllers/envelopes');
 
 /**
  * @swagger
@@ -35,9 +43,7 @@ module.exports = router;
  *       tags:
  *         - Envelopes
  */
-router.get('/', (req, res) => {
-    res.status(400).send();
-});
+router.get('/', getEnvelopes);
 
 /**
  * @swagger
@@ -73,9 +79,7 @@ router.get('/', (req, res) => {
  *       tags:
  *         - Receive Income
  */
-router.put('/', (req, res) => {
-    res.status(400).send();
-});
+router.put('/', receiveIncome);
 
 /**
  * @swagger
@@ -118,9 +122,7 @@ router.put('/', (req, res) => {
  *       tags:
  *         - Use budget
  */
-router.put('/:id', (req, res) => {
-    res.status(400).send();
-});
+router.put('/:id', spendBudget);
 
 
 /**
