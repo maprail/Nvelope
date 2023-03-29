@@ -1,15 +1,12 @@
 // routes/categories.js
 
-const { getCategories, createEnvelopes, transferBudgets } = require('../controllers/categories');
-
 const router = require('express').Router();
 module.exports = router;
 
-{ getCategories,
-  createEnvelopes,
-  transferBudgets
-} = require('../controllers/categories.js');
+const {db} = require('.././db');
+const {RouteHandler} = require('./route-handler.js');
 
+const cRouter = new RouteHandler(router);
 /**
  * @swagger
  * /api/categories:
@@ -43,7 +40,8 @@ module.exports = router;
  *       tags:
  *         - Categories
  */
-router.get('/', getCategories);
+
+cRouter.get('/', db.categories.all);
 
  /**
   * /api/categories:
@@ -79,7 +77,7 @@ router.get('/', getCategories);
         - Create Envelopes
   * 
   */
-router.post('/', createEnvelopes);
+cRouter.post('/', db.categories.add);        
 
 /**
   * /api/categories:
@@ -115,7 +113,7 @@ router.post('/', createEnvelopes);
         - Modify Percentages
   * 
   */
-router.put('/', transferBudgets);
+cRouter.put('/', db.categories.transfer);
 
 /**
  * @swagger

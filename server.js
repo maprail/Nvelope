@@ -20,7 +20,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 // Mount the api router below 
-const apiRouter = require('./server/api');
+const apiRouter = require('./routes/api.js');
 app.use('/api', apiRouter);
 
 // This conditional is here for testing purposes:

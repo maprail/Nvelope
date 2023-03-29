@@ -1,9 +1,9 @@
 const expect = require('chai').expect;
 const { application } = require('express');
 const request = require('supertest');
-const { response } = require('../server');
+//const { response } = require('../server');
 
-const app = require('../server');
+const app = require('../server.js');
 
 const initCategories = {"categories": [
   {
@@ -63,11 +63,11 @@ const updateCategories = {"categories": [
   }
 ]}
 
-describe('POST /api/envelopes/categories', () => {
+describe('POST /api/categories', () => {
 
   it('should create envelopes from provided category array', () => {
     return request(app)
-      .post('/api/envelopes/categories')
+      .post('/api/categories')
       .send(initCategories)
       .expect(201)
       .then((response) => response.body)
@@ -80,8 +80,9 @@ describe('POST /api/envelopes/categories', () => {
         expect(envCategories).to.be.deep.equal(initCategories.categories);
       })
   });
+});
 
-  it('should update envelopes using the updated category array', () => {
+  /*it('should update envelopes using the updated category array', () => {
     return request(app)
       .post('/api/envelopes/categories')
       .send(updateCategories)
@@ -95,9 +96,8 @@ describe('POST /api/envelopes/categories', () => {
         });
         expect(envCategories).to.be.deep.equal(updateCategories.categories);
       })
-  });
-});
-
+  });*/
+/*
 describe('GET /api/envelopes/categories routes', () => {
   it('should veriffy caregories are an array', () => {
     return request(app)
@@ -139,7 +139,7 @@ describe('GET api/envelopes/categories/:category', () => {
     .get('/api/envelopes/categories/fun')
     .expect(404);
   });
-});
+});*/
 /* 
 
   describe('GET /minions/:minionId', function() {

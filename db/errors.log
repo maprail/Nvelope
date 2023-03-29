@@ -1,0 +1,4 @@
+
+
+11:32:35 error: syntax error at or near "("
+         query: INSERT (name, percetage) INTO categories VALUE('auto', 0.20)
