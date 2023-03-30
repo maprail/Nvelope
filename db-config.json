@@ -1,7 +1,7 @@
 {
     "host": "localhost",
     "port": 5432,
-    "database": "pg-promise-demo",
+    "database": "portfolio_budget",
     "user": "postgres",
     "password": "Ritz372:rem"
   }

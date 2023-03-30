@@ -4,9 +4,8 @@ const router = require('express').Router();
 module.exports = router;
 
 const {db} = require('.././db');
-const {RouteHandler} = require('./route-handler.js');
+const httpExecute = require('./route-handler.js')
 
-const cRouter = new RouteHandler(router);
 /**
  * @swagger
  * /api/categories:
@@ -41,7 +40,9 @@ const cRouter = new RouteHandler(router);
  *         - Categories
  */
 
-cRouter.get('/', db.categories.all);
+router.get('/',  (req, res) => {
+  httpExecute(req, res, db.categories.all.bind(db.categories));
+});
 
  /**
   * /api/categories:
@@ -77,7 +78,9 @@ cRouter.get('/', db.categories.all);
         - Create Envelopes
   * 
   */
-cRouter.post('/', db.categories.add);        
+router.post('/', (req, res) => {
+    httpExecute(req, res, db.categories.add.bind(db.categories));
+});        
 
 /**
   * /api/categories:
@@ -113,7 +116,7 @@ cRouter.post('/', db.categories.add);
         - Modify Percentages
   * 
   */
-cRouter.put('/', db.categories.transfer);
+router.put('/', (req, res) => {});
 
 /**
  * @swagger

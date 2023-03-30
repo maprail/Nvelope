@@ -65,6 +65,18 @@ const updateCategories = {"categories": [
 
 describe('POST /api/categories', () => {
 
+  it('should return an array of all categories', () => {
+    return request(app)
+      .get('/api/envelopes/categories')
+      .expect(200)
+      .then((response) => {
+        response.body.forEach((category) => {
+          expect(category).to.have.ownProperty('name');
+          expect(category).to.have.ownProperty('percentage');
+      });
+    });
+  });
+
   it('should create envelopes from provided category array', () => {
     return request(app)
       .post('/api/categories')

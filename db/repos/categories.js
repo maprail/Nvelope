@@ -22,7 +22,7 @@ class CategoriesRepositary {
      *  Get all categories
      */
     all(){
-
+        return this.db.any('SELECT * FROM categories');
     }
 
     
@@ -32,7 +32,9 @@ class CategoriesRepositary {
      * required distribution in the new categories
      * @param {Oject} req 
      */
-    async add(req) {
+    add(req) {
+        console.log(req.body);
+        return this.db.any('SELECT * FROM categories');
 
     }
 

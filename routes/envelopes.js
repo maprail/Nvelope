@@ -4,9 +4,6 @@ const router = require('express').Router();
 module.exports = router;
 
 const {db} = require('.././db');
-const {RouteHandler} = require('./route-handler.js');
-
-const eRouter = new RouteHandler(router);
 
 /**
  * @swagger
@@ -41,7 +38,7 @@ const eRouter = new RouteHandler(router);
  *       tags:
  *         - Envelopes
  */
-eRouter.get('/', db.envelopes.all);
+router.get('/', (req, res) => {});
 
 /**
  * @swagger
@@ -77,7 +74,7 @@ eRouter.get('/', db.envelopes.all);
  *       tags:
  *         - Receive Income
  */
-eRouter.put('/', db.envelopes.allocate);
+router.put('/', (req, res) => {});
 
 /**
  * @swagger
@@ -120,7 +117,7 @@ eRouter.put('/', db.envelopes.allocate);
  *       tags:
  *         - Use budget
  */
-eRouter.put('/:id', db.envelopes.spend);
+router.put('/:id', (req, res) => {});
 
 
 /**
