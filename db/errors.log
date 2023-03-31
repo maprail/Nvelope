@@ -2,3 +2,30 @@
 
 11:32:35 error: syntax error at or near "("
          query: INSERT (name, percetage) INTO categories VALUE('auto', 0.20)
+
+20:23:30 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+20:24:25 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+20:25:02 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+20:26:09 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+20:26:32 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+20:30:52 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+20:32:19 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+21:15:56 error: relation "categoriess" does not exist
+         query: INSERT INTO "categoriess"("name","percentage") VALUES('mortgage',0.3),('utilities',0.1),('goceries',0.2),('entertainment',0.2),('auto',0.1),('savings',0.1)
+
+21:17:49 error: relation "categoriess" does not exist
+         query: INSERT INTO "categoriess"("name","percentage") VALUES('mortgage',0.3),('utilities',0.1),('goceries',0.2),('entertainment',0.2),('auto',0.1),('savings',0.1)

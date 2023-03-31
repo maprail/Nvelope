@@ -5,10 +5,10 @@ const request = require('supertest');
 
 const app = require('../server.js');
 
-const initCategories = {"categories": [
+const initCategories = [
   {
-      "name": "mortgage",
-      "percentage": 0.3
+      name: "mortgage",
+      percentage: 0.3
   },
   {
       "name": "utilities",
@@ -30,9 +30,9 @@ const initCategories = {"categories": [
       "name": "savings",
       "percentage": 0.1
   }
-]}
+]
 
-const updateCategories = {"categories": [
+const updateCategories = [
   {
       "name": "mortgage",
       "percentage": 0.3
@@ -61,8 +61,7 @@ const updateCategories = {"categories": [
       "name": "savings",
       "percentage": 0.1
   }
-]}
-
+];
 
 describe('GET /api/categories', () => {
   it('should return an array of all categories', () => {
@@ -88,11 +87,23 @@ describe('GET /api/categories', () => {
   });
 });
 
-describe('POST api/categories', () => {
-  it('should return an array of envelopes that match the requested categories', () => {
+describe('POST /api/categories', () => {
+  it('should create envelopes from provided category array', () => {
     return request(app)
-      .post('')
-
+      .post('/api/categories')
+      .send(initCategories)
+      .expect(201)
+//     .then((response) => response.body)
+//      .then((envelopes) => {
+//        expect(envelopes.length === initCategories.length);
+//        envCategories = envelopes.map(envelope => {
+//          return {name: envelope.name, 
+//                  percentage: envelope.percentage};
+//        });
+//        expect(envCategories).to.be.deep.equal(initCategories.categories);
+//      })
   });
 });
+
+
 

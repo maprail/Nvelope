@@ -36,6 +36,24 @@ class EnvelopesRepositary {
     spend(req){
 
     }
+
+    async createEnvelopes(categories) {
+
+    }
 }
+
+/*const createColumnSets = (pgp) => {
+    // create all ColumnSet objects only once:
+    if (!cs.insert) {
+        // Type TableName is useful when schema isn't default "public" ,
+        // otherwise you can just pass in a string for the table name.
+        const table = new pgp.helpers.TableName({table: 'envelopes', schema: 'public'});
+
+        cs.insert = new pgp.helpers.ColumnSet(['name'], {table});
+        cs.update = cs.insert.extend(['?percentage', '?budget']);
+    }
+    return cs; 
+} */
+
 
 module.exports = EnvelopesRepositary;

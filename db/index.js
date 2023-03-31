@@ -1,12 +1,13 @@
 // db/index.js
 
-const pgPromise = require('pg-promise'); // pg-promise core library
+const pgPromise = require('pg-promise');
 const dbConfig = require('../db-config.json'); // db connection details
 const {Diagnostics} = require('./diagnostics'); // optional diagnostics
 const {Categories, Envelopes} = require('./repos');
 
 // pg-promise initialization options:
 const initOptions = {
+    capSQL: true, // capitalize all generated SQL
     // Extending the database protocol with our custom repositories;
     // API: http://vitaly-t.github.io/pg-promise/global.html#event:extend
     extend(obj, dc) {
