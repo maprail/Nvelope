@@ -4,16 +4,13 @@
 const httpExecute = async (req, res, handler) => {
     try {
         const data = await handler(req);
-        if(req.statusCode){
-            res.statusCode = req.statusCode;
-        }
         
         res.json({
             success: true,
             data
         });
     } catch (error) {
-        res.json({
+        res.status(400).json({
             success: false,
             error: error.message || error
         });

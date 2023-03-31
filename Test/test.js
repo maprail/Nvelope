@@ -15,7 +15,7 @@ const initCategories = [
       "percentage": 0.1
   },
   {
-      "name": "goceries",
+      "name": "groceries",
       "percentage": 0.2
   },
   {
@@ -32,10 +32,10 @@ const initCategories = [
   }
 ]
 
-const updateCategories = [
+const rejectCategories = [
   {
       "name": "mortgage",
-      "percentage": 0.3
+      "percentage": 0.2
   },
   {
       "name": "utilities",
@@ -46,7 +46,7 @@ const updateCategories = [
       "percentage": 0.1
   },
   {
-      "name": "goceries",
+      "name": "groceries",
       "percentage": 0.2
   },
   {
@@ -92,16 +92,23 @@ describe('POST /api/categories', () => {
     return request(app)
       .post('/api/categories')
       .send(initCategories)
-      .expect(201)
-//     .then((response) => response.body)
-//      .then((envelopes) => {
-//        expect(envelopes.length === initCategories.length);
-//        envCategories = envelopes.map(envelope => {
-//          return {name: envelope.name, 
-//                  percentage: envelope.percentage};
-//        });
-//        expect(envCategories).to.be.deep.equal(initCategories.categories);
-//      })
+      .expect(200)
+      .then((response) => response.body.data)
+      .then((envelopes) => {
+        expect(envelopes.length === initCategories.length);
+        const envCategories = envelopes.map(envelope => {
+          return {name: envelope.name, 
+                  percentage: envelope.percentage};
+      });
+        expect(envCategories).to.be.deep.equal(initCategories);
+      });
+  });
+
+  it('should fail to create envlopes. sum percent of each category is != 100%', () => {
+    return request(app)
+      .post('/api/categories')
+      .send(rejectCategories)
+      .expect(400)
   });
 });
 

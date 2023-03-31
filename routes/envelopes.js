@@ -4,6 +4,7 @@ const router = require('express').Router();
 module.exports = router;
 
 const {db} = require('.././db');
+const httpExecute = require('./route-handler.js')
 
 /**
  * @swagger
@@ -38,7 +39,9 @@ const {db} = require('.././db');
  *       tags:
  *         - Envelopes
  */
-router.get('/', (req, res) => {});
+router.get('/', (req, res) => {
+    httpExecute(req, res, db.envelopes.all.bind(db.envelopes));
+});
 
 /**
  * @swagger
@@ -74,7 +77,9 @@ router.get('/', (req, res) => {});
  *       tags:
  *         - Receive Income
  */
-router.put('/', (req, res) => {});
+router.put('/', (req, res) => {
+    httpExecute(req, res, db.envelopes.allocate.bind(db.envelopes));
+});
 
 /**
  * @swagger
@@ -117,7 +122,55 @@ router.put('/', (req, res) => {});
  *       tags:
  *         - Use budget
  */
-router.put('/:id', (req, res) => {});
+router.put('/:id', (req, res) => {
+    httpExecute(req, res, db.envelopes.spend.bind(db.envelopes));
+});
+
+/**
+  * /api/envelopes{idFrom}{idTo}:
+    put:
+      summary: Transfer budget in idFRom to idTo
+      description: >-
+        This operation transfer the budget is idFrom and adds it to the budget in idTo
+      operationId: transfer_budget
+      parameters:
+        - name: idFrom
+        in: path
+        description: The category decribing the envelope to remove current budget from
+        required: true
+        schema:
+            type: string
+            example: auto
+        - name: idTo
+        in: path
+        description: The category decribing the envelope to add current budget to.
+        required: true
+        schema:
+            type: string
+            example: auto
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Create Envelopes:
+                  value: Created
+        '400':
+          description: Request Failed
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Request Failed:
+                  value: Budget could not be tranferred
+      tags:
+        - Modify Percentages
+  * 
+  *
+  */
+router.put('/:idFrom/:idTo', (req, res) => {
+    httpExecute(req, res, db.envelopes.transfer.bind(db.envelopes));
+});
 
 
 /**

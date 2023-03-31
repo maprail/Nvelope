@@ -83,42 +83,6 @@ router.post('/', (req, res) => {
 });        
 
 /**
-  * /api/categories:
-    put:
-      summary: Modify budget percentages assgned to envelopes
-      description: >-
-        This operation reasigns category percentages to the provided categories array.e
-        The rearanged sum of all percentages must add up to the sum of percentages in the current categories being modified
-      operationId: update_percantages
-      requestBody:
-        description: array of objects
-        content:
-          application/json:
-            schema: 
-              $ref: '#/components/schemas/Categories'
-        required: true      
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain; charset=utf-8:
-              examples:
-                Create Envelopes:
-                  value: Created
-        '400':
-          description: Request Failed
-          content:
-            text/plain; charset=utf-8:
-              examples:
-                Request Failed:
-                  value: Invalid categories array.  Are sum of percentages of passed array equal to sum of percentages of existing categories.
-      tags:
-        - Modify Percentages
-  * 
-  */
-router.put('/', (req, res) => {});
-
-/**
  * @swagger
   components:
   schemas:
