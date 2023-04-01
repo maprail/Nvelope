@@ -19,6 +19,9 @@ app.use(cors());
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+const docsRouter = require("./routes/docs");
+app.use("/api-docs", docsRouter);
+
 // Mount the api router below 
 const apiRouter = require('./routes/api.js');
 app.use('/api', apiRouter);

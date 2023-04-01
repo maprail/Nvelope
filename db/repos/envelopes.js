@@ -25,6 +25,7 @@ class EnvelopesRepositary {
 
         return {
             statusCode: 200,
+            data
         }
     }
 
