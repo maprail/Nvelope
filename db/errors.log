@@ -1,0 +1,70 @@
+
+
+11:32:35 error: syntax error at or near "("
+         query: INSERT (name, percetage) INTO categories VALUE('auto', 0.20)
+
+20:23:30 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+20:24:25 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+20:25:02 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+20:26:09 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+20:26:32 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+20:30:52 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+20:32:19 error: cannot truncate a table referenced in a foreign key constraint
+         query: TRUNCATE TABLE categories
+
+21:15:56 error: relation "categoriess" does not exist
+         query: INSERT INTO "categoriess"("name","percentage") VALUES('mortgage',0.3),('utilities',0.1),('goceries',0.2),('entertainment',0.2),('auto',0.1),('savings',0.1)
+
+21:17:49 error: relation "categoriess" does not exist
+         query: INSERT INTO "categoriess"("name","percentage") VALUES('mortgage',0.3),('utilities',0.1),('goceries',0.2),('entertainment',0.2),('auto',0.1),('savings',0.1)
+
+22:16:27 error: duplicate key value violates unique constraint "categories_pkey"
+         query: INSERT INTO "categories"("name","percentage") VALUES('mortgage',0.3),('utilities',0.1),('goceries',0.2),('entertainment',0.2),('auto',0.1),('savings',0.1)
+
+22:18:51 error: duplicate key value violates unique constraint "categories_pkey"
+         query: INSERT INTO "categories"("name","percentage") VALUES('mortgage',0.3),('utilities',0.1),('goceries',0.2),('entertainment',0.2),('auto',0.1),('savings',0.1)
+
+14:53:26 error: column "percent" does not exist
+         query: SELECT name, percent, budget FROM envelopes WHERE name = 'mortgage'
+
+15:10:32 error: column "auto" does not exist
+         query: SELECT * FROM envelopes WHERE name IN (auto, savings)
+
+15:12:04 error: column "auto" does not exist
+         query: SELECT * FROM envelopes WHERE name IN (auto, savings)
+
+15:36:42 error: column "budget" is of type double precision but expression is of type text
+         query: UPDATE "envelopes" AS t SET "budget"=v."budget" FROM (VALUES('mortgage','NaN'),('utilities','NaN'),('groceries','NaN'),('entertainment','NaN'),('auto','NaN'),('savings','NaN')) AS v("name","budget") WHERE v.name = t.name
+
+15:38:17 error: column "budget" is of type double precision but expression is of type text
+         query: UPDATE "envelopes" AS t SET "budget"=v."budget" FROM (VALUES('mortgage','NaN'),('utilities','NaN'),('groceries','NaN'),('entertainment','NaN'),('auto','NaN'),('savings','NaN')) AS v("name","budget") WHERE v.name = t.name
+
+15:44:27 error: column "budget" is of type double precision but expression is of type text
+         query: UPDATE "envelopes" AS t SET "budget"=v."budget" FROM (VALUES('mortgage','NaN'),('utilities','NaN'),('groceries','NaN'),('entertainment','NaN'),('auto','NaN'),('savings','NaN')) AS v("name","budget") WHERE v.name = t.name
+
+15:44:39 error: column "budget" is of type double precision but expression is of type text
+         query: UPDATE "envelopes" AS t SET "budget"=v."budget" FROM (VALUES('mortgage','NaN'),('utilities','NaN'),('groceries','NaN'),('entertainment','NaN'),('auto','NaN'),('savings','NaN')) AS v("name","budget") WHERE v.name = t.name
+
+15:45:45 error: column "budget" is of type double precision but expression is of type text
+         query: UPDATE "envelopes" AS t SET "budget"=v."budget" FROM (VALUES('mortgage','NaN'),('utilities','NaN'),('groceries','NaN'),('entertainment','NaN'),('auto','NaN'),('savings','NaN')) AS v("name","budget") WHERE v.name = t.name
+
+15:46:45 error: column "budget" is of type double precision but expression is of type text
+         query: UPDATE "envelopes" AS t SET "budget"=v."budget" FROM (VALUES('mortgage','NaN'),('utilities','NaN'),('groceries','NaN'),('entertainment','NaN'),('auto','NaN'),('savings','NaN')) AS v("name","budget") WHERE v.name = t.name
+
+15:49:42 error: column "budget" is of type double precision but expression is of type text
+         query: UPDATE "envelopes" AS t SET "budget"=v."budget" FROM (VALUES('mortgage','NaN'),('utilities','NaN'),('groceries','NaN'),('entertainment','NaN'),('auto','NaN'),('savings','NaN')) AS v("name","budget") WHERE v.name = t.name
+
+00:46:01 error: relation "transactions" does not exist
+         query: INSERT INTO "transactions"("envelope_name","trans_type","amount") VALUES(' ','allocate',1000)
