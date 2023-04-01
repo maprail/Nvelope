@@ -65,3 +65,6 @@
 
 15:49:42 error: column "budget" is of type double precision but expression is of type text
          query: UPDATE "envelopes" AS t SET "budget"=v."budget" FROM (VALUES('mortgage','NaN'),('utilities','NaN'),('groceries','NaN'),('entertainment','NaN'),('auto','NaN'),('savings','NaN')) AS v("name","budget") WHERE v.name = t.name
+
+00:46:01 error: relation "transactions" does not exist
+         query: INSERT INTO "transactions"("envelope_name","trans_type","amount") VALUES(' ','allocate',1000)

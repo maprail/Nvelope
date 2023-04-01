@@ -19,8 +19,11 @@ class CategoriesRepositary {
     /**
      *  Get all categories
      */
-    all(){
-        return this.db.any('SELECT * FROM categories');
+    async all(){
+        const data = await this.db.any('SELECT * FROM categories');
+        return {
+            statusCode: 200
+        }
     }
 
     
@@ -39,7 +42,10 @@ class CategoriesRepositary {
           
             await this.db.none(query);
 
-            return this.db.envelopes.createEnvelopes(categories);
+            const data = await this.db.envelopes.createEnvelopes(categories);
+            return {
+                statusCode: 201
+            }
         }
         else {
             const err = new Error('Incorrect category array: Verify sum of all category percentages is 100%');

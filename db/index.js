@@ -3,7 +3,7 @@
 const pgPromise = require('pg-promise');
 const dbConfig = require('../db-config.json'); // db connection details
 const {Diagnostics} = require('./diagnostics'); // optional diagnostics
-const {Categories, Envelopes} = require('./repos');
+const {Categories, Envelopes, Transactions} = require('./repos');
 
 // pg-promise initialization options:
 const initOptions = {
@@ -17,6 +17,7 @@ const initOptions = {
         // which should be as fast as possible.
         obj.categories = new Categories(obj, pgp);
         obj.envelopes = new Envelopes(obj, pgp);
+        obj.transactions = new Transactions(obj, pgp);
     }
 };
 

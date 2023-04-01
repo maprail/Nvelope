@@ -20,8 +20,12 @@ class EnvelopesRepositary {
     /**
      *  Get all envelopes
      */
-    all(){
-        return this.db.many('SELECT * FROM envelopes');
+    async all(){
+        const data = await this.db.many('SELECT * FROM envelopes');
+
+        return {
+            statusCode: 200,
+        }
     }
 
     /**
@@ -41,6 +45,12 @@ class EnvelopesRepositary {
 
         // Add to total budget
         this.balance += amountReceived;
+
+        await this.db.transactions.write([{envelope_name: 'all', trans_type: 'allocate', amount: amountReceived}]);
+
+        return {
+            statusCode: 200
+        }
     }
 
     /**
@@ -61,6 +71,12 @@ class EnvelopesRepositary {
 
         // Subtract from total budget
         this.balance -= spendAmount;
+
+        await this.db.transactions.write([{envelope_name: req.params.id, trans_type: 'spend', amount: spendAmount}]);
+
+        return {
+            statusCode: 200
+        }
     }
 
      /**
@@ -77,7 +93,17 @@ class EnvelopesRepositary {
         envelopes.find(e => e.name === fromCat).budget = 0;
         const query2 = await this.pgp.helpers.update(envelopes, cs.budget) + ' WHERE v.name = t.name';
 
-        return await  this.db.none(query2);
+        await  this.db.none(query2);
+
+        const transactions = envelopes.map(e => {
+            return {envelope_name: e.name, trans_type: 'transfer', amount: e.budget};
+        });
+
+        await this.db.transactions.write(transactions);
+
+        return {
+            statusCode: 200,
+        }
      }
 
     async createEnvelopes(categories) {
